@@ -1,0 +1,28 @@
+services:
+  rabbit:
+    image: rabbitmq:alpine
+    restart: always
+    depends_on:
+      - ms-consumer
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=pass1234
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  ms-producer:
+    build: services/ms-producer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - rabbit
+
+  ms-consumer:
+    build: services/ms-consumer
+    restart: always
+    depends_on:
+      - postgres
