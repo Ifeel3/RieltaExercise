@@ -1,8 +1,0 @@
-FROM golang:alpine
-ADD . /build/
-WORKDIR /build/
-RUN mkdir /service
-RUN go build -o /service/ms-producer .
-WORKDIR /service
-RUN rm -rf /build
-CMD /service/ms-producer

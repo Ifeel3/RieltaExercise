@@ -1,6 +1,6 @@
 go 1.19
 
 use (
-	.
-	./services/ms-producer
+	./services/consumer-ms
+	./services/producer-ms
 )
